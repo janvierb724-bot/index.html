@@ -6,9 +6,14 @@
     <title>JPF ❤️ My Kiddo</title>
 
     <style>
-        /* (same styles as before – omitted for brevity, but keep everything) */
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -19,383 +24,890 @@
                 #fff8fb;
             color: #30232a;
         }
-        .app { width: 100%; max-width: 760px; margin: auto; padding: 18px; }
-        .header { text-align: center; padding: 25px 10px 15px; }
+
+        .app {
+            width: 100%;
+            max-width: 760px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 10px 15px;
+        }
+
         .logo {
-            width: 82px; height: 82px; margin: auto; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            width: 82px;
+            height: 82px;
+            margin: auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, #ff477e, #9b59b6);
-            color: white; font-size: 25px; font-weight: 900; letter-spacing: 2px;
+            color: white;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 2px;
             box-shadow: 0 12px 30px rgba(190, 55, 110, .25);
         }
-        .header h1 { margin: 18px 0 3px; font-size: 32px; background: linear-gradient(90deg, #e52f67, #934bb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header h2 { margin: 0; color: #e52f67; font-size: 18px; }
-        .header p { color: #7b6d75; font-size: 14px; }
-        .card { background: rgba(255,255,255,.94); border: 1px solid #f1dce5; border-radius: 25px; padding: 25px; box-shadow: 0 12px 40px rgba(80,30,60,.09); }
-        .intro { text-align: center; }
-        .intro .big-heart { font-size: 55px; }
-        .intro h2 { font-size: 27px; margin: 5px 0 15px; }
-        .intro p { color: #665a62; }
-        .highlight { padding: 16px; margin: 20px 0; border-radius: 15px; background: #fff0f5; border-left: 4px solid #ff477e; }
-        .start-btn, .submit-btn, .download-btn {
-            width: 100%; border: 0; border-radius: 16px; padding: 17px 20px;
-            font-size: 17px; font-weight: 800; cursor: pointer;
-            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+
+        .header h1 {
+            margin: 18px 0 3px;
+            font-size: 32px;
+            background: linear-gradient(90deg, #e52f67, #934bb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .start-btn, .submit-btn {
-            color: white; background: linear-gradient(135deg, #ff477e, #9b59b6);
+
+        .header h2 {
+            margin: 0;
+            color: #e52f67;
+            font-size: 18px;
+        }
+
+        .header p {
+            color: #7b6d75;
+            font-size: 14px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .94);
+            border: 1px solid #f1dce5;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 12px 40px rgba(80, 30, 60, .09);
+        }
+
+        .intro {
+            text-align: center;
+        }
+
+        .intro .big-heart {
+            font-size: 55px;
+        }
+
+        .intro h2 {
+            font-size: 27px;
+            margin: 5px 0 15px;
+        }
+
+        .intro p {
+            color: #665a62;
+        }
+
+        .highlight {
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 15px;
+            background: #fff0f5;
+            border-left: 4px solid #ff477e;
+        }
+
+        .start-btn,
+        .submit-btn,
+        .download-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 16px;
+            padding: 17px 20px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .start-btn,
+        .submit-btn {
+            color: white;
+            background: linear-gradient(135deg, #ff477e, #9b59b6);
             box-shadow: 0 10px 25px rgba(190, 55, 110, .22);
         }
-        .start-btn:active { transform: scale(0.97); }
-        .download-btn { margin-top: 12px; background: #fff0f5; color: #d93468; border: 1px solid #f1cedb; }
 
-        #quiz { display: none; }
-        .progress-area { margin-bottom: 20px; }
-        .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; color: #7c6d75; font-weight: 700; }
-        .progress-bar { width: 100%; height: 8px; background: #f2dfe7; border-radius: 20px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff477e, #9b59b6); transition: width .3s ease; }
+        .start-btn:active {
+            transform: scale(0.97);
+        }
 
-        .question-card { display: none; }
-        .question-card.active { display: block; animation: fade .25s ease; }
-        @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .download-btn {
+            margin-top: 12px;
+            background: #fff0f5;
+            color: #d93468;
+            border: 1px solid #f1cedb;
+        }
 
-        .question-number { color: #ff477e; font-size: 13px; font-weight: 900; letter-spacing: 1px; }
-        .question { margin-top: 7px; font-size: 25px; line-height: 1.35; font-weight: 800; }
-        .hint { margin-top: 10px; color: #82747c; font-size: 14px; }
+        #quiz {
+            display: none;
+        }
+
+        .progress-area {
+            margin-bottom: 20px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #7c6d75;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f2dfe7;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff477e, #9b59b6);
+            transition: width .3s ease;
+        }
+
+        .question-card {
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fade .25s ease;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #ff477e;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .question {
+            margin-top: 7px;
+            font-size: 25px;
+            line-height: 1.35;
+            font-weight: 800;
+        }
+
+        .hint {
+            margin-top: 10px;
+            color: #82747c;
+            font-size: 14px;
+        }
+
         textarea {
-            display: block; width: 100%; min-height: 190px; margin-top: 20px; padding: 16px;
-            border: 2px solid #eadde3; border-radius: 16px; background: #fffafd;
-            color: #30232a; font-family: inherit; font-size: 17px; line-height: 1.55;
-            resize: vertical; outline: none; -webkit-appearance: none;
+            display: block;
+            width: 100%;
+            min-height: 190px;
+            margin-top: 20px;
+            padding: 16px;
+            border: 2px solid #eadde3;
+            border-radius: 16px;
+            background: #fffafd;
+            color: #30232a;
+            font-family: inherit;
+            font-size: 17px;
+            line-height: 1.55;
+            resize: vertical;
+            outline: none;
+            -webkit-appearance: none;
         }
-        textarea:focus { border-color: #ff477e; }
 
-        .navigation { display: flex; gap: 10px; margin-top: 20px; }
+        textarea:focus {
+            border-color: #ff477e;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
         .nav-btn {
-            flex: 1; padding: 15px 12px; border-radius: 14px; border: 1px solid #ead8e0;
-            background: white; color: #503d46; font-size: 16px; font-weight: 800;
-            cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+            flex: 1;
+            padding: 15px 12px;
+            border-radius: 14px;
+            border: 1px solid #ead8e0;
+            background: white;
+            color: #503d46;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
-        .nav-btn:active { transform: scale(0.97); }
-        .next-btn { background: #ff477e; border-color: #ff477e; color: white; }
-        .nav-btn:disabled { opacity: .35; transform: none !important; }
 
-        .final-screen { display: none; }
-        .final-screen h2 { text-align: center; font-size: 28px; color: #e52f67; }
-        .final-heart { text-align: center; font-size: 60px; }
-        .final-screen p { color: #665a62; text-align: center; }
-        .name-box { margin: 25px 0; }
-        .name-box label { display: block; font-weight: 800; margin-bottom: 8px; }
-        .name-input { width: 100%; padding: 15px; border-radius: 14px; border: 2px solid #eadde3; font-size: 16px; outline: none; -webkit-appearance: none; }
-        .name-input:focus { border-color: #ff477e; }
+        .nav-btn:active {
+            transform: scale(0.97);
+        }
 
-        .thank-you { display: none; text-align: center; padding: 35px 15px; }
-        .thank-you .heart { font-size: 65px; }
-        .thank-you h2 { color: #e52f67; }
-        .thank-you p { color: #6e6068; }
+        .next-btn {
+            background: #ff477e;
+            border-color: #ff477e;
+            color: white;
+        }
 
-        footer { text-align: center; color: #9a8991; font-size: 12px; padding: 25px 10px; }
+        .nav-btn:disabled {
+            opacity: .35;
+            transform: none !important;
+        }
+
+        .final-screen {
+            display: none;
+        }
+
+        .final-screen h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #e52f67;
+        }
+
+        .final-heart {
+            text-align: center;
+            font-size: 60px;
+        }
+
+        .final-screen p {
+            color: #665a62;
+            text-align: center;
+        }
+
+        .name-box {
+            margin: 25px 0;
+        }
+
+        .name-box label {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            border: 2px solid #eadde3;
+            font-size: 16px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .name-input:focus {
+            border-color: #ff477e;
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        .thank-you .heart {
+            font-size: 65px;
+        }
+
+        .thank-you h2 {
+            color: #e52f67;
+        }
+
+        .thank-you p {
+            color: #6e6068;
+        }
+
+        footer {
+            text-align: center;
+            color: #9a8991;
+            font-size: 12px;
+            padding: 25px 10px;
+        }
 
         @media (max-width: 600px) {
-            .app { padding: 10px; }
-            .header h1 { font-size: 28px; }
-            .card { padding: 20px; border-radius: 20px; }
-            .question { font-size: 22px; }
-            textarea { min-height: 200px; font-size: 17px; }
-            .navigation { position: sticky; bottom: 8px; background: rgba(255,255,255,.92); padding: 8px; border-radius: 18px; backdrop-filter: blur(10px); }
+            .app {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+            .card {
+                padding: 20px;
+                border-radius: 20px;
+            }
+            .question {
+                font-size: 22px;
+            }
+            textarea {
+                min-height: 200px;
+                font-size: 17px;
+            }
+            .navigation {
+                position: sticky;
+                bottom: 8px;
+                background: rgba(255, 255, 255, .92);
+                padding: 8px;
+                border-radius: 18px;
+                backdrop-filter: blur(10px);
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="app">
+    <div class="app">
 
-    <header class="header">
-        <div class="logo">JPF</div>
-        <h1>Janvier &amp; Peruth</h1>
-        <h2>Forever ❤️</h2>
-        <p>A little journey for my Kiddo 🥺💕</p>
-    </header>
+        <header class="header">
+            <div class="logo">JPF</div>
+            <h1>Janvier &amp; Peruth</h1>
+            <h2>Forever ❤️</h2>
+            <p>A little journey for my Kiddo 🥺💕</p>
+        </header>
 
-    <!-- INTRO -->
-    <div class="card intro" id="intro">
-        <div class="big-heart">💌</div>
-        <h2>To My Kiddo ❤️</h2>
-        <p>My Kiddo,</p>
-        <p>
-            We literally just finished our WhatsApp video call
-            about 10 minutes ago 😂❤️ and somehow I still have
-            so many things I want to tell you.
-        </p>
-        <p>We've now shared <strong>3 years</strong> of this beautiful journey.</p>
-        <div class="highlight"><strong>JPF = Janvier ❤️ Peruth Forever ♾️</strong></div>
-        <p>Three years of conversations, laughter, love, disagreements, forgiveness, growth, dreams, and memories.</p>
-        <p>We've talked about our future.<br />Living together.<br />Building a home.<br />Marriage.<br />Careers.<br />Dreams.<br />Life.</p>
-        <p>So today I want to ask you some questions.</p>
-        <p><strong>Not because I want perfect answers.</strong></p>
-        <p>I want your honest answers.<br />Your real thoughts.<br />Your real dreams.<br />Your real feelings.</p>
-        <p>Take your time, My Kiddo. ❤️</p>
+        <!-- INTRO -->
+        <div class="card intro" id="intro">
+            <div class="big-heart">💌</div>
+            <h2>To My Kiddo ❤️</h2>
+            <p>My Kiddo,</p>
+            <p>
+                We literally just finished our WhatsApp video call
+                about 10 minutes ago 😂❤️ and somehow I still have
+                so many things I want to tell you.
+            </p>
+            <p>We've now shared <strong>3 years</strong> of this beautiful journey.</p>
+            <div class="highlight"><strong>JPF = Janvier ❤️ Peruth Forever ♾️</strong></div>
+            <p>Three years of conversations, laughter, love, disagreements, forgiveness, growth, dreams, and memories.</p>
+            <p>We've talked about our future.<br />Living together.<br />Building a home.<br />Marriage.<br />Careers.<br />Dreams.<br />Life.</p>
+            <p>So today I want to ask you some questions.</p>
+            <p><strong>Not because I want perfect answers.</strong></p>
+            <p>I want your honest answers.<br />Your real thoughts.<br />Your real dreams.<br />Your real feelings.</p>
+            <p>Take your time, My Kiddo. ❤️</p>
+            <button class="start-btn" onclick="startQuiz()">Start Our Journey ❤️</button>
+        </div>
 
-        <!-- ✅ Global onclick handler – most reliable on iOS -->
-        <button class="start-btn" id="startBtn" onclick="startQuiz()">
-            Start Our Journey ❤️
-        </button>
-    </div>
+        <!-- QUIZ -->
+        <div id="quiz">
 
-    <!-- QUIZ (hidden initially) -->
-    <div id="quiz">
-        <div class="progress-area">
-            <div class="progress-top">
-                <span id="progressText">Question 1 of 40</span>
-                <span id="percent">3%</span>
+            <div class="progress-area">
+                <div class="progress-top">
+                    <span id="progressText">Question 1 of 40</span>
+                    <span id="percent">3%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+
+            <div id="questions">
+
+                <!-- 1 -->
+                <div class="card question-card active">
+                    <div class="question-number">QUESTION 01</div>
+                    <div class="question">After these 3 years together, what does our relationship genuinely mean to you?</div>
+                    <div class="hint">Tell me what JPF really means to your heart.</div>
+                    <textarea data-question="1" placeholder="Write your honest answer here... ❤️"></textarea>
+                </div>
+
+                <!-- 2 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 02</div>
+                    <div class="question">What is your favorite memory of us from these 3 years?</div>
+                    <div class="hint">It can be something big, small, funny, romantic, or something I may have forgotten.</div>
+                    <textarea data-question="2" placeholder="Tell me about that memory..."></textarea>
+                </div>
+
+                <!-- 3 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 03</div>
+                    <div class="question">If someone asked you, "Why do you love Janvier?", what would you tell them?</div>
+                    <textarea data-question="3" placeholder="Tell me honestly... ❤️"></textarea>
+                </div>
+
+                <!-- 4 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 04</div>
+                    <div class="question">What is one thing about Janvier that you never want to change?</div>
+                    <textarea data-question="4" placeholder="Your answer..."></textarea>
+                </div>
+
+                <!-- 5 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 05</div>
+                    <div class="question">What is one thing about me that you honestly wish I would improve?</div>
+                    <div class="hint">Be honest. I want to become a better man and a better partner.</div>
+                    <textarea data-question="5" placeholder="You can be completely honest..."></textarea>
+                </div>
+
+                <!-- 6 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 06</div>
+                    <div class="question">What moment made you realize your feelings for me were becoming serious?</div>
+                    <textarea data-question="6" placeholder="Tell me about that moment..."></textarea>
+                </div>
+
+                <!-- 7 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 07</div>
+                    <div class="question">What motivates you to continue loving me?</div>
+                    <div class="hint">Is it my personality, how I treat you, our memories, our future, or something else?</div>
+                    <textarea data-question="7" placeholder="Your honest answer..."></textarea>
+                </div>
+
+                <!-- 8 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 08</div>
+                    <div class="question">When you are having a difficult day, what is it about me that makes you feel better?</div>
+                    <textarea data-question="8" placeholder="Tell me..."></textarea>
+                </div>
+
+                <!-- 9 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 09</div>
+                    <div class="question">What is something I do that makes you feel genuinely loved?</div>
+                    <textarea data-question="9" placeholder="Your answer..."></textarea>
+                </div>
+
+                <!-- 10 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 10</div>
+                    <div class="question">What do you think makes JPF special?</div>
+                    <textarea data-question="10" placeholder="What makes us different? ❤️"></textarea>
+                </div>
+
+                <!-- 11 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 11</div>
+                    <div class="question">Do you genuinely see a future with me?</div>
+                    <div class="hint">Don't answer simply because we've been together for 3 years. Tell me what you truly feel today.</div>
+                    <textarea data-question="11" placeholder="Tell me why..."></textarea>
+                </div>
+
+                <!-- 12 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 12</div>
+                    <div class="question">When you imagine your life 5–10 years from now, do you see Janvier standing beside you?</div>
+                    <textarea data-question="12" placeholder="Describe what you see..."></textarea>
+                </div>
+
+                <!-- 13 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 13</div>
+                    <div class="question">If life becomes difficult between us, will you fight for JPF or eventually walk away?</div>
+                    <textarea data-question="13" placeholder="Tell me what you honestly believe..."></textarea>
+                </div>
+
+                <!-- 14 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 14</div>
+                    <div class="question">When you say "JPF — Janvier &amp; Peruth Forever", what does "Forever" actually mean to you?</div>
+                    <textarea data-question="14" placeholder="What does Forever mean to you? ♾️"></textarea>
+                </div>
+
+                <!-- 15 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 15</div>
+                    <div class="question">Do you believe we can stay together through careers, distance, family, responsibilities and all the changes adulthood brings?</div>
+                    <textarea data-question="15" placeholder="Tell me why..."></textarea>
+                </div>
+
+                <!-- 16 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 16</div>
+                    <div class="question">Are you willing to grow with me, even when growing together becomes difficult?</div>
+                    <textarea data-question="16" placeholder="Your answer..."></textarea>
+                </div>
+
+                <!-- 17 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 17</div>
+                    <div class="question">Can you genuinely imagine us living together one day?</div>
+                    <textarea data-question="17" placeholder="What would our life together look like? 🏡"></textarea>
+                </div>
+
+                <!-- 18 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 18</div>
+                    <div class="question">If we eventually live together, what kind of home and life would you want us to build?</div>
+                    <textarea data-question="18" placeholder="Describe our future home and life..."></textarea>
+                </div>
+
+                <!-- 19 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 19</div>
+                    <div class="question">Do you genuinely see marriage with me as something you would want?</div>
+                    <textarea data-question="19" placeholder="Tell me honestly... 💍"></textarea>
+                </div>
+
+                <!-- 20 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 20</div>
+                    <div class="question">What kind of husband do you want Janvier to become?</div>
+                    <textarea data-question="20" placeholder="Tell me what you expect from your future husband..."></textarea>
+                </div>
+
+                <!-- 21 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 21</div>
+                    <div class="question">What kind of wife do you want to become for Janvier?</div>
+                    <textarea data-question="21" placeholder="What kind of partner do you want to be?"></textarea>
+                </div>
+
+                <!-- 22 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 22</div>
+                    <div class="question">What are the most important things we should accomplish before getting married?</div>
+                    <textarea data-question="22" placeholder="Education, careers, finances, family, personal growth..."></textarea>
+                </div>
+
+                <!-- 23 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 23</div>
+                    <div class="question">If your plan to go for your Master's fails, what would you plan to do next?</div>
+                    <div class="hint">I want to know your Plan B honestly.</div>
+                    <textarea data-question="23" placeholder="What would you do next? 🎓"></textarea>
+                </div>
+
+                <!-- 24 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 24</div>
+                    <div class="question">If the Master's opportunity fails completely, what alternative path would you choose?</div>
+                    <div class="hint">Another university? Apply again? Work? Business? A new skill? A different career?</div>
+                    <textarea data-question="24" placeholder="Tell me your alternative plan..."></textarea>
+                </div>
+
+                <!-- 25 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 25</div>
+                    <div class="question">If your career plans and our relationship plans ever conflict, how would you want us to handle it?</div>
+                    <textarea data-question="25" placeholder="How should we balance our dreams and our relationship?"></textarea>
+                </div>
+
+                <!-- 26 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 26</div>
+                    <div class="question">What are your biggest personal goals for the next 5 years?</div>
+                    <textarea data-question="26" placeholder="Tell me about the woman you want to become..."></textarea>
+                </div>
+
+                <!-- 27 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 27</div>
+                    <div class="question">Where do you want to be professionally, financially and personally in 5 years?</div>
+                    <textarea data-question="27" placeholder="Describe your future..."></textarea>
+                </div>
+
+                <!-- 28 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 28</div>
+                    <div class="question">What do you think could be the biggest challenge to our relationship in the future?</div>
+                    <textarea data-question="28" placeholder="Be honest..."></textarea>
+                </div>
+
+                <!-- 29 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 29</div>
+                    <div class="question">What do you think we need to work on now if we really want JPF to last forever?</div>
+                    <textarea data-question="29" placeholder="What should we improve together?"></textarea>
+                </div>
+
+                <!-- 30 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 30</div>
+                    <div class="question">If we have a serious disagreement in the future, what would you expect from me?</div>
+                    <textarea data-question="30" placeholder="How should I treat you during difficult moments?"></textarea>
+                </div>
+
+                <!-- 31 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 31</div>
+                    <div class="question">What do you promise yourself that you will do to protect our relationship?</div>
+                    <textarea data-question="31" placeholder="Your promise to JPF..."></textarea>
+                </div>
+
+                <!-- 32 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 32</div>
+                    <div class="question">What do you need from me to feel secure, respected and loved?</div>
+                    <textarea data-question="32" placeholder="Tell me what you need from me... ❤️"></textarea>
+                </div>
+
+                <!-- 33 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 33</div>
+                    <div class="question">If tomorrow life became much harder than it is today, would you still choose me?</div>
+                    <div class="hint">Imagine money problems, distance, career challenges, family pressure or difficult seasons.</div>
+                    <textarea data-question="33" placeholder="Would you still choose JPF? Why?"></textarea>
+                </div>
+
+                <!-- 34 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 34</div>
+                    <div class="question">If you had to choose ONE reason why you would stay with me forever, what would it be?</div>
+                    <textarea data-question="34" placeholder="Your one reason..."></textarea>
+                </div>
+
+                <!-- 35 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 35</div>
+                    <div class="question">What would make you stop believing in JPF?</div>
+                    <div class="hint">I want the honest answer, even if it is difficult.</div>
+                    <textarea data-question="35" placeholder="Tell me honestly..."></textarea>
+                </div>
+
+                <!-- 36 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 36</div>
+                    <div class="question">Is there anything you have been afraid to tell me about our relationship?</div>
+                    <div class="hint">No judgment. This is your safe space.</div>
+                    <textarea data-question="36" placeholder="You can tell me anything..."></textarea>
+                </div>
+
+                <!-- 37 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 37</div>
+                    <div class="question">Imagine we are married many years from now. What would you want to tell the Janvier you are talking to today?</div>
+                    <textarea data-question="37" placeholder="Write a message to future Janvier... 💌"></textarea>
+                </div>
+
+                <!-- 38 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 38</div>
+                    <div class="question">Finish this sentence: "Janvier, I choose you because..."</div>
+                    <textarea data-question="38" placeholder="Janvier, I choose you because..."></textarea>
+                </div>
+
+                <!-- 39 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 39</div>
+                    <div class="question">Finish this sentence: "JPF means..."</div>
+                    <textarea data-question="39" placeholder="JPF means..."></textarea>
+                </div>
+
+                <!-- 40 -->
+                <div class="card question-card">
+                    <div class="question-number">QUESTION 40 — THE FINAL ONE ❤️</div>
+                    <div class="question">Do you want to build the FOREVER we keep talking about with me?</div>
+                    <div class="hint">Give me your honest answer. Yes, no, maybe, or anything your heart needs to say.</div>
+                    <textarea data-question="40" placeholder="Your final answer to Janvier... ❤️"></textarea>
+                </div>
+
             </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn">← Previous</button>
+                <button class="nav-btn next-btn" id="nextBtn">Next →</button>
+            </div>
+
         </div>
 
-        <div id="questions">
-            <!-- 40 question cards – same as before, omitted for brevity -->
-            <!-- Include all 40 .question-card elements exactly as in your original -->
-            <!-- (I'll keep them all here but they are the same as your file) -->
-            <!-- For space, I'm showing a shortened version – you MUST include all 40 -->
-            <!-- But I'll paste them all in the final code snippet below -->
+        <!-- FINAL SCREEN -->
+        <div class="card final-screen" id="finalScreen">
+            <div class="final-heart">❤️</div>
+            <h2>You Made It, My Kiddo 🥺</h2>
+            <p>You just answered all of my questions.</p>
+            <p>Thank you for giving me your time,<br />your thoughts, your dreams and your heart.</p>
+            <div class="name-box">
+                <label for="girlfriendName">One last thing — your name ❤️</label>
+                <input class="name-input" id="girlfriendName" type="text" placeholder="Enter your name" required />
+            </div>
+
+            <form id="loveForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+                <input type="hidden" name="_subject" value="❤️ JPF — My Kiddo's Responses" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="Girlfriend Name" id="hiddenName" />
+                <input type="hidden" name="JPF Responses" id="hiddenResponses" />
+                <button type="submit" class="submit-btn">Submit My JPF Responses ❤️</button>
+            </form>
+
+            <button class="download-btn" id="downloadBtn">Download My Responses 📥</button>
         </div>
 
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn">← Previous</button>
-            <button class="nav-btn next-btn" id="nextBtn">Next →</button>
+        <!-- THANK YOU -->
+        <div class="card thank-you" id="thankYou">
+            <div class="heart">💕</div>
+            <h2>JPF ♾️</h2>
+            <p>Your answers have been sent.</p>
+            <p>Now they belong to the man who loves you very much.</p>
+            <p>Thank you, My Kiddo. ❤️</p>
+            <h2>Janvier ❤️ Peruth</h2>
+            <p>Forever.</p>
         </div>
+
+        <footer>
+            JPF — Janvier &amp; Peruth Forever ♾️<br />
+            Made with ❤️ by Janvier
+        </footer>
+
     </div>
 
-    <!-- FINAL SCREEN -->
-    <div class="card final-screen" id="finalScreen">
-        <div class="final-heart">❤️</div>
-        <h2>You Made It, My Kiddo 🥺</h2>
-        <p>You just answered all of my questions.</p>
-        <p>Thank you for giving me your time,<br />your thoughts, your dreams and your heart.</p>
-        <div class="name-box">
-            <label for="girlfriendName">One last thing — your name ❤️</label>
-            <input class="name-input" id="girlfriendName" type="text" placeholder="Enter your name" required />
-        </div>
-        <form id="loveForm" action="https://formsubmit.co/janvierb724@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="❤️ JPF — My Kiddo's Responses" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="Girlfriend Name" id="hiddenName" />
-            <input type="hidden" name="JPF Responses" id="hiddenResponses" />
-            <button type="submit" class="submit-btn">Submit My JPF Responses ❤️</button>
-        </form>
-        <button class="download-btn" id="downloadBtn">Download My Responses 📥</button>
-    </div>
-
-    <!-- THANK YOU -->
-    <div class="card thank-you" id="thankYou">
-        <div class="heart">💕</div>
-        <h2>JPF ♾️</h2>
-        <p>Your answers have been sent.</p>
-        <p>Now they belong to the man who loves you very much.</p>
-        <p>Thank you, My Kiddo. ❤️</p>
-        <h2>Janvier ❤️ Peruth</h2>
-        <p>Forever.</p>
-    </div>
-
-    <footer>
-        JPF — Janvier &amp; Peruth Forever ♾️<br />
-        Made with ❤️ by Janvier
-    </footer>
-</div>
-
-<script>
-    // ─── GLOBAL startQuiz function (called by onclick) ──────────────
-    function startQuiz() {
-        console.log('startQuiz() called!'); // check console for this message
-        document.getElementById('intro').style.display = 'none';
-        document.getElementById('quiz').style.display = 'block';
-        // Reset to first question
-        currentQuestion = 0;
-        showQuestion();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ─── All other logic inside DOMContentLoaded ──────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // DOM refs
-        const quiz = document.getElementById('quiz');
-        const finalScreen = document.getElementById('finalScreen');
-        const thankYou = document.getElementById('thankYou');
-        const loveForm = document.getElementById('loveForm');
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        const questionCards = document.querySelectorAll('.question-card');
-        const totalQuestions = questionCards.length;
-        const progressText = document.getElementById('progressText');
-        const progressFill = document.getElementById('progressFill');
-        const percent = document.getElementById('percent');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        let currentQuestion = 0; // will be used globally
-
-        // load saved answers
-        function loadAnswers() {
-            document.querySelectorAll('textarea').forEach(function(ta) {
-                const saved = localStorage.getItem('JPF_Q_' + ta.dataset.question);
-                if (saved !== null) ta.value = saved;
-            });
-        }
-        loadAnswers();
-
-        // auto-save on input
-        document.querySelectorAll('textarea').forEach(function(ta) {
-            ta.addEventListener('input', function() {
-                localStorage.setItem('JPF_Q_' + this.dataset.question, this.value);
-            });
-        });
-
-        // show question
-        function showQuestion() {
-            questionCards.forEach(function(q, i) {
-                q.classList.toggle('active', i === currentQuestion);
-            });
-
-            const num = currentQuestion + 1;
-            const pct = Math.round((num / totalQuestions) * 100);
-            progressText.textContent = 'Question ' + num + ' of ' + totalQuestions;
-            percent.textContent = pct + '%';
-            progressFill.style.width = pct + '%';
-
-            prevBtn.disabled = (currentQuestion === 0);
-            nextBtn.textContent = (currentQuestion === totalQuestions - 1) ? 'Finish ❤️' : 'Next →';
-
+    <script>
+        // ─── GLOBAL startQuiz ──────────────────────────────
+        function startQuiz() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            currentQuestion = 0;
+            showQuestion();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // save all answers
-        function saveAnswers() {
+        // ─── DOM CONTENT ──────────────────────────────────
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const questionCards = document.querySelectorAll('.question-card');
+            const totalQuestions = questionCards.length;
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const percent = document.getElementById('percent');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const finalScreen = document.getElementById('finalScreen');
+            const thankYou = document.getElementById('thankYou');
+            const loveForm = document.getElementById('loveForm');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            let currentQuestion = 0;
+
+            // load answers
+            function loadAnswers() {
+                document.querySelectorAll('textarea').forEach(function(ta) {
+                    const saved = localStorage.getItem('JPF_Q_' + ta.dataset.question);
+                    if (saved !== null) ta.value = saved;
+                });
+            }
+            loadAnswers();
+
+            // auto-save
             document.querySelectorAll('textarea').forEach(function(ta) {
-                localStorage.setItem('JPF_Q_' + ta.dataset.question, ta.value);
+                ta.addEventListener('input', function() {
+                    localStorage.setItem('JPF_Q_' + this.dataset.question, this.value);
+                });
             });
-        }
 
-        // build response text
-        function buildResponses() {
-            let out = 'JPF — JANVIER & PERUTH FOREVER\n';
-            out += 'My Kiddo\'s Responses ❤️\n';
-            out += '========================================\n\n';
-            document.querySelectorAll('textarea').forEach(function(ta, idx) {
-                const card = ta.closest('.question-card');
-                const qText = card ? card.querySelector('.question').innerText.trim() : 'Question ' + (idx + 1);
-                const ans = ta.value.trim() || '[No answer provided]';
-                out += 'QUESTION ' + (idx + 1) + '\n' + qText + '\n\nANSWER:\n' + ans + '\n';
-                out += '----------------------------------------\n\n';
+            // show question
+            function showQuestion() {
+                questionCards.forEach(function(q, i) {
+                    q.classList.toggle('active', i === currentQuestion);
+                });
+
+                const num = currentQuestion + 1;
+                const pct = Math.round((num / totalQuestions) * 100);
+                progressText.textContent = 'Question ' + num + ' of ' + totalQuestions;
+                percent.textContent = pct + '%';
+                progressFill.style.width = pct + '%';
+
+                prevBtn.disabled = (currentQuestion === 0);
+                nextBtn.textContent = (currentQuestion === totalQuestions - 1) ? 'Finish ❤️' : 'Next →';
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function saveAnswers() {
+                document.querySelectorAll('textarea').forEach(function(ta) {
+                    localStorage.setItem('JPF_Q_' + ta.dataset.question, ta.value);
+                });
+            }
+
+            function buildResponses() {
+                let out = 'JPF — JANVIER & PERUTH FOREVER\n';
+                out += 'My Kiddo\'s Responses ❤️\n';
+                out += '========================================\n\n';
+                document.querySelectorAll('textarea').forEach(function(ta, idx) {
+                    const card = ta.closest('.question-card');
+                    const qText = card ? card.querySelector('.question').innerText.trim() : 'Question ' + (idx + 1);
+                    const ans = ta.value.trim() || '[No answer provided]';
+                    out += 'QUESTION ' + (idx + 1) + '\n' + qText + '\n\nANSWER:\n' + ans + '\n';
+                    out += '----------------------------------------\n\n';
+                });
+                return out;
+            }
+
+            function nextQuestion() {
+                saveAnswers();
+                if (currentQuestion < totalQuestions - 1) {
+                    currentQuestion++;
+                    showQuestion();
+                } else {
+                    finishQuestions();
+                }
+            }
+
+            function previousQuestion() {
+                saveAnswers();
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    showQuestion();
+                }
+            }
+
+            function finishQuestions() {
+                saveAnswers();
+                document.getElementById('quiz').style.display = 'none';
+                finalScreen.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function prepareSubmission(e) {
+                saveAnswers();
+                const name = document.getElementById('girlfriendName').value.trim();
+                if (!name) {
+                    e.preventDefault();
+                    alert('My Kiddo ❤️ Please enter your name first.');
+                    return;
+                }
+                document.getElementById('hiddenName').value = name;
+                document.getElementById('hiddenResponses').value = buildResponses();
+            }
+
+            function downloadResponses() {
+                saveAnswers();
+                const name = document.getElementById('girlfriendName').value.trim() || 'My_Kiddo';
+                const text = buildResponses();
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'JPF_' + name.replace(/\s+/g, '_') + '_Responses.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+
+            // Events
+            nextBtn.addEventListener('click', nextQuestion);
+            prevBtn.addEventListener('click', previousQuestion);
+
+            loveForm.addEventListener('submit', function(e) {
+                prepareSubmission(e);
+                if (!e.defaultPrevented) {
+                    setTimeout(function() {
+                        finalScreen.style.display = 'none';
+                        thankYou.style.display = 'block';
+                    }, 1000);
+                }
             });
-            return out;
-        }
 
-        // navigation
-        function nextQuestion() {
-            saveAnswers();
-            if (currentQuestion < totalQuestions - 1) {
-                currentQuestion++;
-                showQuestion();
-            } else {
-                finishQuestions();
-            }
-        }
+            downloadBtn.addEventListener('click', downloadResponses);
 
-        function previousQuestion() {
-            saveAnswers();
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                showQuestion();
-            }
-        }
+            // Make sure quiz is hidden
+            document.getElementById('quiz').style.display = 'none';
 
-        function finishQuestions() {
-            saveAnswers();
-            quiz.style.display = 'none';
-            finalScreen.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // prepare submission
-        function prepareSubmission(e) {
-            saveAnswers();
-            const name = document.getElementById('girlfriendName').value.trim();
-            if (!name) {
-                e.preventDefault();
-                alert('My Kiddo ❤️ Please enter your name first.');
-                return;
-            }
-            document.getElementById('hiddenName').value = name;
-            document.getElementById('hiddenResponses').value = buildResponses();
-        }
-
-        // download
-        function downloadResponses() {
-            saveAnswers();
-            const name = document.getElementById('girlfriendName').value.trim() || 'My_Kiddo';
-            const text = buildResponses();
-            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'JPF_' + name.replace(/\s+/g, '_') + '_Responses.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        // attach events
-        nextBtn.addEventListener('click', nextQuestion);
-        prevBtn.addEventListener('click', previousQuestion);
-
-        loveForm.addEventListener('submit', function(e) {
-            prepareSubmission(e);
-            if (!e.defaultPrevented) {
-                setTimeout(function() {
-                    finalScreen.style.display = 'none';
-                    thankYou.style.display = 'block';
-                }, 1000);
-            }
         });
-
-        downloadBtn.addEventListener('click', downloadResponses);
-
-        // extra fallback for the start button: also listen to click/touch if inline fails
-        const startBtn = document.getElementById('startBtn');
-        if (startBtn) {
-            startBtn.addEventListener('click', function(e) {
-                // if for some reason the global startQuiz was not called, call it
-                if (typeof startQuiz === 'function') {
-                    startQuiz();
-                }
-            });
-            startBtn.addEventListener('touchstart', function(e) {
-                // iOS sometimes needs touchstart to wake up the page
-                // but we don't want to double-fire
-                if (!this._touched) {
-                    this._touched = true;
-                    if (typeof startQuiz === 'function') {
-                        startQuiz();
-                    }
-                }
-            });
-        }
-
-        // ensure quiz is hidden initially
-        quiz.style.display = 'none';
-
-        // expose some functions globally for debugging (optional)
-        window.startQuiz = startQuiz;
-        window.nextQuestion = nextQuestion;
-        window.previousQuestion = previousQuestion;
-
-    }); // end DOMContentLoaded
-</script>
+    </script>
 
 </body>
 </html>
